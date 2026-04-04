@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('album_logs', function (Blueprint $table) {
+            $table->dropForeign(['album_id']);
+
+            $table->unsignedBigInteger('album_id')->nullable()->change();
+
+            $table->foreign('album_id')
+                ->references('id')
+                ->on('albums')
+                ->nullOnDelete();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('album_logs', function (Blueprint $table) {
+            $table->dropForeign(['album_id']);
+
+            $table->unsignedBigInteger('album_id')->nullable(false)->change();
+
+            $table->foreign('album_id')
+                ->references('id')
+                ->on('albums')
+                ->cascadeOnDelete();
+        });
+    }
+};
