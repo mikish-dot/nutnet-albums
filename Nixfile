@@ -1,0 +1,12 @@
+
+    { pkgs ? import <nixpkgs> {} }:
+
+    pkgs.mkShell {
+      buildInputs = [
+        pkgs.php
+        pkgs.phpExtensions.pdo_mysql
+        pkgs.composer
+        pkgs.nodejs
+        pkgs.yarn
+      ];
+    }
